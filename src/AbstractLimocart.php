@@ -77,7 +77,7 @@ abstract class AbstractLimocart
 
         if (self::METHOD_POST === $method) {
             $opts[CURLOPT_POST] = true;
-            $opts[CURLOPT_POSTFIELDS] = $args;
+            $opts[CURLOPT_POSTFIELDS] = http_build_query($args);
         } elseif (self::METHOD_PUT === $method) {
             $opts[CURLOPT_CUSTOMREQUEST] = 'PUT';
             $opts[CURLOPT_POSTFIELDS] = http_build_query($args);
