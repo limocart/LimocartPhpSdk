@@ -120,7 +120,13 @@ abstract class AbstractLimocart
         $params['client_id'] = $this->getClientId();
         $params['client_secret'] = $this->getClientSecret();
 
-        $apiUrl .= '?' . http_build_query($params);
+        if (false === strpos($apiUrl, '?')) {
+            $apiUrl .= '?';
+        } else {
+            $apiUrl .= '&';
+        }
+
+        $apiUrl .= http_build_query($params);
 
         return $apiUrl;
     }
