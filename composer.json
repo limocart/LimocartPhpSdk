@@ -1,0 +1,21 @@
+ {
+     "name": "limocart/limocart-php-sdk",
+     "description": "Limocart PHP SDK",
+		 "license": "MIT",
+     "authors": [
+         {
+             "name": "Can Aydogan",
+             "email": "canaydogan89@gmail.com"
+         }
+     ],
+     "minimum-stability": "alpha",
+     "require": {
+        "php": ">=5.3",
+				"zendframework/zend-cache": "2.2.*@dev"
+     },
+    "autoload": {
+    	"psr-0": {
+				"LimocartPhpSdk": "src/"
+    	}
+		}
+ }
