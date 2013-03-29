@@ -11,11 +11,9 @@ if (!function_exists('json_decode')) {
 
 require_once 'Result/StandardResult.php';
 
-use RuntimeException,
-    InvalidArgumentException,
-    LimocartPhpSdk\Result\StandardResult;
-
-
+use RuntimeException;
+use InvalidArgumentException;
+use LimocartPhpSdk\Result\StandardResult;
 
 abstract class AbstractLimocart
 {
