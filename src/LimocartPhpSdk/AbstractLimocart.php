@@ -68,6 +68,10 @@ abstract class AbstractLimocart
             $this->setAccessToken($config['accessToken']);
         }
 
+        if (isset($config['cache'])) {
+            $this->setCache($config['cache']);
+        }
+
         $this->setClientId($config['clientId']);
         $this->setClientSecret($config['clientSecret']);
     }
