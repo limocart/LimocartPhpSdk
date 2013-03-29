@@ -43,6 +43,11 @@ abstract class AbstractLimocart
      */
     protected $_apiUrl = 'http://api.limocart.com/';
 
+    /**
+     * @var \Zend\Cache\Storage\StorageInterface
+     */
+    protected $_cache;
+
     protected $_curlOpts = array(
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_RETURNTRANSFER => true,
@@ -67,7 +72,12 @@ abstract class AbstractLimocart
         $this->setClientSecret($config['clientSecret']);
     }
 
-    public function api($path, array $args = array(), $method = self::METHOD_GET)
+    public function api(
+        $path,
+        array $args = array(),
+        $method = self::METHOD_GET,
+        $cache = false
+    )
     {
         $result = new StandardResult();
         $apiUrl = $this->buildApiUrl($path, $args, $method);
@@ -81,6 +91,9 @@ abstract class AbstractLimocart
             $opts[CURLOPT_POSTFIELDS] = http_build_query($args);
         } elseif(self::METHOD_GET === $method) {
             $opts[CURLOPT_HTTPGET] = true;
+            if ($this->getCache() && $this->getCache()->hasItem($apiUrl)) {
+                return $this->getCache()->getItem($apiUrl);
+            }
         } else {
             $opts[CURLOPT_CUSTOMREQUEST ] = $method;
         }
@@ -98,6 +111,10 @@ abstract class AbstractLimocart
         }
 
         curl_close($ch);
+
+        if ($cache && $this->getCache()) {
+            $this->getCache()->setItem($apiUrl, $result);
+        }
 
         return $result;
     }
@@ -191,6 +208,22 @@ abstract class AbstractLimocart
     public function getApiUrl()
     {
         return $this->_apiUrl;
+    }
+
+    /**
+     * @param \Zend\Cache\Storage\StorageInterface $cache
+     */
+    public function setCache($cache)
+    {
+        $this->_cache = $cache;
+    }
+
+    /**
+     * @return \Zend\Cache\Storage\StorageInterface
+     */
+    public function getCache()
+    {
+        return $this->_cache;
     }
 
 }
