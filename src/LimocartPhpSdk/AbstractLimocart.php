@@ -43,7 +43,7 @@ abstract class AbstractLimocart
     /**
      * @var string
      */
-    protected $_apiUrl = 'http://api2.limocart.net/';
+    protected $_apiUrl = 'http://api.limocart.com/';
 
     protected $_curlOpts = array(
         CURLOPT_CONNECTTIMEOUT => 10,
