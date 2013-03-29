@@ -95,7 +95,7 @@ abstract class AbstractLimocart
             $opts[CURLOPT_POSTFIELDS] = http_build_query($args);
         } elseif(self::METHOD_GET === $method) {
             $opts[CURLOPT_HTTPGET] = true;
-            if ($this->getCache() && $this->getCache()->hasItem($apiUrl)) {
+            if ($cache && $this->getCache() && $this->getCache()->hasItem($apiUrl)) {
                 return $this->getCache()->getItem($apiUrl);
             }
         } else {
