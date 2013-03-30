@@ -86,6 +86,7 @@ abstract class AbstractLimocart
         $result = new StandardResult();
         $apiUrl = $this->buildApiUrl($path, $args, $method);
         $opts = $this->_curlOpts;
+        $cacheKey = sha1(strtolower($apiUrl));
 
         if (self::METHOD_POST === $method) {
             $opts[CURLOPT_POST] = true;
@@ -95,8 +96,8 @@ abstract class AbstractLimocart
             $opts[CURLOPT_POSTFIELDS] = http_build_query($args);
         } elseif(self::METHOD_GET === $method) {
             $opts[CURLOPT_HTTPGET] = true;
-            if ($cache && $this->getCache() && $this->getCache()->hasItem($apiUrl)) {
-                return $this->getCache()->getItem($apiUrl);
+            if ($cache && $this->getCache()->hasItem($cacheKey)) {
+                return $this->getCache()->getItem($cacheKey);
             }
         } else {
             $opts[CURLOPT_CUSTOMREQUEST ] = $method;
@@ -116,8 +117,8 @@ abstract class AbstractLimocart
 
         curl_close($ch);
 
-        if ($cache && $this->getCache()) {
-            $this->getCache()->setItem($apiUrl, $result);
+        if ($cache) {
+            $this->getCache()->setItem($cacheKey, $result);
         }
 
         return $result;
