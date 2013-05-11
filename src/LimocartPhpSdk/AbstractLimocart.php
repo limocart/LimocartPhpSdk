@@ -11,8 +11,8 @@ if (!function_exists('json_decode')) {
 
 require_once 'Result/StandardResult.php';
 
-use RuntimeException;
 use InvalidArgumentException;
+use RuntimeException;
 use LimocartPhpSdk\Result\StandardResult;
 
 abstract class AbstractLimocart
@@ -80,13 +80,17 @@ abstract class AbstractLimocart
         $path,
         array $args = array(),
         $method = self::METHOD_GET,
-        $cache = false
+        $cache = false,
+        $cacheKey = null
     )
     {
         $result = new StandardResult();
         $apiUrl = $this->buildApiUrl($path, $args, $method);
         $opts = $this->_curlOpts;
-        $cacheKey = sha1(strtolower($apiUrl));
+
+        if (null === $cacheKey) {
+            $cacheKey = sha1(strtolower($apiUrl));
+        }
 
         if (self::METHOD_POST === $method) {
             $opts[CURLOPT_POST] = true;
