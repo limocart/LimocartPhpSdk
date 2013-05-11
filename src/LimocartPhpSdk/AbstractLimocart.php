@@ -48,6 +48,11 @@ abstract class AbstractLimocart
      */
     protected $_cache;
 
+    /**
+     * @var int
+     */
+    protected $_currencyId = 147;
+
     protected $_curlOpts = array(
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_RETURNTRANSFER => true,
@@ -141,6 +146,8 @@ abstract class AbstractLimocart
             $params['access_token'] = $this->getAccessToken();
         }
 
+
+        $params['currencyId'] = $this->getCurrencyId();
         $params['client_id'] = $this->getClientId();
         $params['client_secret'] = $this->getClientSecret();
 
@@ -234,5 +241,22 @@ abstract class AbstractLimocart
     {
         return $this->_cache;
     }
+
+    /**
+     * @param int $currencyId
+     */
+    public function setCurrencyId($currencyId)
+    {
+        $this->_currencyId = $currencyId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCurrencyId()
+    {
+        return $this->_currencyId;
+    }
+
 
 }
