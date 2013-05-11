@@ -153,6 +153,8 @@ abstract class AbstractLimocart
 
 
         $params['currencyId'] = $this->getCurrencyId();
+        $params['locale'] = $this->getLocale();
+
         $params['client_id'] = $this->getClientId();
         $params['client_secret'] = $this->getClientSecret();
 
