@@ -104,7 +104,16 @@ abstract class AbstractLimocart
 
         if (self::METHOD_POST === $method) {
             $opts[CURLOPT_POST] = true;
-            $opts[CURLOPT_POSTFIELDS] = http_build_query($args);
+
+            /**
+             * @todo gecici olarak bu sekilde ayirdim. Diger turlu dosya upload olmuyor.
+             */
+            if (isset($_FILES) && is_array($_FILES) && count($_FILES)) {
+                $opts[CURLOPT_POSTFIELDS] = $args;
+            } else {
+                $opts[CURLOPT_POSTFIELDS] = http_build_query($args);
+            }
+
         } elseif (self::METHOD_PUT === $method) {
             $opts[CURLOPT_CUSTOMREQUEST] = 'PUT';
             $opts[CURLOPT_POSTFIELDS] = http_build_query($args);
