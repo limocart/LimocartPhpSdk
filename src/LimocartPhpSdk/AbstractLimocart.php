@@ -53,6 +53,11 @@ abstract class AbstractLimocart
      */
     protected $_currencyId = 147;
 
+    /**
+     * @var string
+     */
+    protected $_locale = 'en-US';
+
     protected $_curlOpts = array(
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_RETURNTRANSFER => true,
@@ -256,6 +261,22 @@ abstract class AbstractLimocart
     public function getCurrencyId()
     {
         return $this->_currencyId;
+    }
+
+    /**
+     * @param string $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->_locale = $locale;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->_locale;
     }
 
 
