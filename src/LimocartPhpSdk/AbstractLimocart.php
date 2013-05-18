@@ -56,7 +56,7 @@ abstract class AbstractLimocart
     /**
      * @var string
      */
-    protected $_locale = 'en-US';
+    protected $_localeId = 1;
 
     protected $_curlOpts = array(
         CURLOPT_CONNECTTIMEOUT => 10,
@@ -162,7 +162,7 @@ abstract class AbstractLimocart
 
 
         $params['currencyId'] = $this->getCurrencyId();
-        $params['locale'] = $this->getLocale();
+        $params['localeId'] = $this->getLocaleId();
 
         $params['client_id'] = $this->getClientId();
         $params['client_secret'] = $this->getClientSecret();
@@ -277,17 +277,17 @@ abstract class AbstractLimocart
     /**
      * @param string $locale
      */
-    public function setLocale($locale)
+    public function setLocaleId($locale)
     {
-        $this->_locale = $locale;
+        $this->_localeId = $locale;
     }
 
     /**
      * @return string
      */
-    public function getLocale()
+    public function getLocaleId()
     {
-        return $this->_locale;
+        return $this->_localeId;
     }
 
 
